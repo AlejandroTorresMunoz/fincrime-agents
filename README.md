@@ -7,6 +7,7 @@
 > end as a **LangGraph** `StateGraph` (multi-node routing, subgraphs, human-in-the-loop, persistent
 > memory) rather than a single ReAct loop.
 
+[![CI](https://github.com/AlejandroTorresMunoz/fincrime-agents/actions/workflows/ci.yml/badge.svg)](https://github.com/AlejandroTorresMunoz/fincrime-agents/actions/workflows/ci.yml)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![Status](https://img.shields.io/badge/status-early%20stage-orange)

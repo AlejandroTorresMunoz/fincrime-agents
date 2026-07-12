@@ -1,0 +1,19 @@
+# Base config — copy this file per experiment rather than hardcoding values.
+# Loaded by fincrime_agents.config.load_config into a plain dict.
+
+llm:
+  provider: ollama # ollama | mock (mock = deterministic fake chat model for tests/CI)
+  model: qwen2.5:3b # must support tool calling; served by Ollama
+  base_url: http://localhost:11434
+  temperature: 0.0
+
+search:
+  provider: offline # tavily | offline (offline stub is the default; CI never hits the network)
+
+graph:
+  recursion_limit: 25 # hard cap on any ReAct loop (guardrail for a small local model)
+
+paths:
+  alerts_fixture: data/alerts_fixture.json
+  sanctions_list: data/raw/ofac_sdn.csv
+  checkpoints_db: artifacts/checkpoints.sqlite
