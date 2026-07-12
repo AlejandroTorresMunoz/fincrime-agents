@@ -3,3 +3,6 @@
 
 # Shell scripts must stay LF to run inside Linux containers.
 *.sh text eol=lf
+
+# Compressed fixtures are binary — never run them through the LF filter.
+*.gz binary
