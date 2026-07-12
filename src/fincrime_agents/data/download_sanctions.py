@@ -48,7 +48,8 @@ def canonical_name(sdn_name: str) -> str:
 def parse_sdn_csv(source: str | Path) -> pd.DataFrame:
     """Read a raw sdn.csv (path or URL) into a tidy individuals-only frame."""
     df = pd.read_csv(source, names=SDN_COLUMNS, header=None, dtype=str, keep_default_na=False)
-    df = df.replace(NULL_MARKER, "")
+    # Fields arrive with stray whitespace and "-0- " (trailing space) as the null marker.
+    df = df.apply(lambda col: col.str.strip()).replace(NULL_MARKER, "")
     df = df[df["type"].str.lower() == "individual"][KEEP_COLUMNS].reset_index(drop=True)
     df["canonical_name"] = df["name"].map(canonical_name)
     return df
@@ -60,6 +61,13 @@ def load_sdn_names(path: str | Path) -> list[str]:
 
 
 def main() -> None:
+    """CLI entrypoint: download, tidy, and persist the SDN individuals list."""
+    # Trust the OS certificate store (like curl/browsers do): Python's bundled CAs
+    # reject corporate/AV TLS-interception chains, which are common on Windows.
+    import truststore
+
+    truststore.inject_into_ssl()
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="configs/base.yaml")
     parser.add_argument("--url", default=None, help="Override the SDN CSV URL from config")

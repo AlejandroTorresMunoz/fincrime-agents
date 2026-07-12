@@ -21,6 +21,7 @@ dependencies = [
     "numpy>=1.26",
     "rapidfuzz>=3.6",
     "python-dotenv>=1.0",
+    "truststore>=0.10.4",
 ]
 
 # Dev tooling lives in dependency groups (PEP 735). `uv sync` installs the default `dev`
