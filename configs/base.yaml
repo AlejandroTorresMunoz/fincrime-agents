@@ -14,6 +14,18 @@ graph:
   recursion_limit: 25 # hard cap on any ReAct loop (guardrail for a small local model)
 
 paths:
-  alerts_fixture: data/alerts_fixture.json
+  alerts_fixture: data/alerts_fixture.json.gz
+  population_stats: data/population_stats.json
   sanctions_list: data/raw/ofac_sdn.csv
   checkpoints_db: artifacts/checkpoints.sqlite
+
+data:
+  sdn_url: https://www.treasury.gov/ofac/downloads/sdn.csv
+  split: # strict temporal split of cases (oldest -> newest)
+    train: 0.7
+    val: 0.1
+    eval: 0.2
+  sanctions_augment:
+    fraction: 0.08 # share of cases rewritten into sanctions cases
+    hit_ratio: 0.5 # of those, how many are true hits (rest are lookalikes)
+    seed: 13

@@ -9,4 +9,6 @@ def test_base_config_loads_and_has_expected_sections():
     assert isinstance(cfg["llm"]["model"], str)
     assert cfg["search"]["provider"] in {"tavily", "offline"}
     assert isinstance(cfg["graph"]["recursion_limit"], int)
-    assert cfg["paths"]["alerts_fixture"].endswith(".json")
+    assert cfg["paths"]["alerts_fixture"].endswith(".json.gz")
+    assert abs(sum(cfg["data"]["split"].values()) - 1.0) < 1e-6
+    assert 0.0 < cfg["data"]["sanctions_augment"]["fraction"] < 1.0
